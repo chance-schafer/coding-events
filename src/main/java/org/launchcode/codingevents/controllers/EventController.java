@@ -25,7 +25,7 @@ public class EventController {
     public String displayAllEvents(Model model) {
         model.addAttribute("title", "All Events");
         model.addAttribute("events", eventRepository.findAll());
-        return "events/index";
+        return "index";
     }
 
     @GetMapping("create")
