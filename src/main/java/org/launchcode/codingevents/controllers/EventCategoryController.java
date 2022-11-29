@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,7 +20,7 @@ public class EventCategoryController {
 
     @GetMapping
     public String displayAllEvents(Model model) {
-        model.addAttribute("title", "All Categories");
+        model.addAttribute("title", "All Event Categories");
         model.addAttribute("categories", eventCategoryRepository.findAll());
 
         return "eventCategories/index";
@@ -31,7 +28,7 @@ public class EventCategoryController {
 
     @GetMapping("create")
     public String renderCreateEventCategoryForm(Model model) {
-        model.addAttribute("title", "Create Category");
+        model.addAttribute("title", "Create Event Category");
         model.addAttribute(new EventCategory());
         return "eventCategories/create";
     }
@@ -40,11 +37,30 @@ public class EventCategoryController {
     public String processCreateEventCategoryForm(@ModelAttribute @Valid EventCategory newEventCategory, Errors errors, Model model) {
 
         if(errors.hasErrors()) {
-            model.addAttribute("title", "Create Category");
+            model.addAttribute("title", "Create Event Category");
             model.addAttribute(new EventCategory());
             return "eventCategories/create";
         }
         eventCategoryRepository.save(newEventCategory);
+        return "redirect:";
+    }
+
+    @GetMapping("delete")
+    public String displayDeleteEventForm(Model model) {
+        model.addAttribute("title", "Delete Event Category");
+        model.addAttribute("eventCategories", eventCategoryRepository.findAll());
+        return "eventCategories/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeleteEventCategoryForm(@RequestParam(required = false) int[] eventCategoryIds) {
+
+        if (eventCategoryIds != null) {
+            for (int id : eventCategoryIds) {
+                eventCategoryRepository.deleteById(id);
+            }
+        }
+
         return "redirect:";
     }
 }
