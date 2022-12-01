@@ -1,5 +1,17 @@
 body {
-    color: purple;
-    background-color: blue;
+    color: white;
+    background-color: black;
     font-size: 18px;
+}
+
+h1 {
+    text-align: center;
+}
+
+nav {
+    margin: 20px 0;
+}
+
+.form-group {
+    margin: 10px 0;
 }

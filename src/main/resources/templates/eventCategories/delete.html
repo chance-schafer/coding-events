@@ -11,8 +11,8 @@
     <th:block th:each="eventCategory : ${eventCategories}">
         <div class="form-group">
             <label>
+                <input type="checkbox" name="eventCategoryIds" th:value="${eventCategory.id}" class="form-check-input">
                 <span th:text="${eventCategory.name}"></span>
-                <input type="checkbox" name="eventCategoryIds" th:value="${eventCategory.id}" class="form-control">
             </label>
         </div>
     </th:block>
